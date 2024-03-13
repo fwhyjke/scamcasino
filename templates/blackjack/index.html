@@ -10,11 +10,30 @@
 <body>
     <div class="wrapper">
         <header>
-            
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
         </header>
         <main>
+            <div class="start_game">
+                <button class="gradient-button-wel glow-on-hover" id="startGameBtn">НАЧАТЬ ИГРУ</button>
+            </div>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <!-- Здесь разместите вашу форму регистрации -->
+                        <h2>Форма регистрации</h2>
+                        <form>
+                            <!-- Ваши поля формы -->
+                        </form>
+                    </div>
+                </div>
         </main>
     </div>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
+
+
+
+
+
+
