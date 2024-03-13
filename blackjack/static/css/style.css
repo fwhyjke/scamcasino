@@ -1,0 +1,54 @@
+@font-face {
+    font-family: FiraSans-Regular;
+    src: url('fonts/FiraSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: FiraSans-Bold;
+    src: url('fonts/FiraSans-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: FiraSans-Light;
+    src: url('fonts/FiraSans-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: FiraSans-Italic;
+    src: url('fonts/FiraSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+}
+
+html {
+    background-color: #2F4454;
+    font-size: 10px;
+}
+
+header {
+    display: flex;
+    width: 110rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 0px 24px 24px;
+    background: #595959;
+    position: sticky;
+    top: -1.5%;
+    z-index: 1;
+}
+
+.wrapper {
+    width: 150rem;
+    height: 100vh;
+    margin: 0 auto;
+}
