@@ -1,14 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <script src="https://kit.fontawesome.com/cfed9a189e.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -32,19 +33,32 @@
                     {% endif %}
                 </li>
             </ul>
-        </header>
+        </header>        
         <main>
-            <div class="start_game">
-                <a class="gradient-button-wel glow-on-hover" href="/game">НАЧАТЬ ИГРУ</a>
-            </div>
+            <form class="login-form" method="post">
+                {% csrf_token %}
+                <h3>С возвращением</h3>
+
+                {% if messages %}
+                {% for message in messages %}
+                <p class="log-error">{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+
+                <label for="username">Логин</label>
+                {{ form.username }}
+
+                <label for="password">Пароль</label>
+                {{ form.password }}
+
+                <button class="login-btn" type="submit">Войти</button>
+
+                <div class="reg">
+                    <a class="reg-btn" href="/registration">Ещё нет аккаунта?</a>
+                </div>
+            </form>
         </main>
     </div>
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
+
 </html>
-
-
-
-
-
-

@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <script src="https://kit.fontawesome.com/cfed9a189e.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -32,19 +32,35 @@
                     {% endif %}
                 </li>
             </ul>
-        </header>
+        </header>        
         <main>
-            <div class="start_game">
-                <a class="gradient-button-wel glow-on-hover" href="/game">НАЧАТЬ ИГРУ</a>
-            </div>
+            <form class="reg-form" method="post">
+                {% csrf_token %}
+                <h3>Создать аккаунт</h3>
+            
+                <label for="username">Имя пользователя</label>
+                {{ form.username }}
+            
+                <label for="password1">Пароль</label>
+                {{ form.password1 }}
+                {% for error in form.password1.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            
+                <label for="password2">Подтвердите пароль</label>
+                {{ form.password2 }}
+                {% for error in form.password2.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            
+                <button class="login-btn" type="submit">Зарегистрироваться</button>
+            
+                <div class="reg">
+                    <a class="reg-btn" href="/login">Уже есть аккаунт?</a>
+                </div>
+            </form>
+            
         </main>
     </div>
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
-
-
-
-
-
-

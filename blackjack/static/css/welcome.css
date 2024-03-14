@@ -1,0 +1,82 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 110rem;
+    height: 100vh;
+}
+
+.main-title {
+    margin: 0;
+    color: #FFF;
+    font-family: Inter-Bold;
+    font-size: 4.8rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.promo {
+    width: 36rem;
+}
+
+.promo-text {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: Inter-Regular;
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.go-btn {
+    margin-top: 0.8rem;
+    display: inline-block;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.10);
+    padding: 1.6rem;
+    text-decoration: none;
+    color: #FFF;
+    font-family: Inter-Regular;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+.reg {
+    width: 32rem;
+}
+
+.reg__how-to {
+    margin: 0;
+    margin-bottom: 1rem;
+    color: #FFF;
+    font-family: Inter-Bold;
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    opacity: 80%;
+}
+
+.reg__text {
+    margin: 0;
+    margin-bottom: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: Inter-Regular;
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+main {
+    margin: 0;
+    padding: 0 10rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
