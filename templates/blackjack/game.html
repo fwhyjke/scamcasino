@@ -1,10 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Balance</title>
 </head>
 <body>
+    <h1>Пользователь {{ user.username }}</h1>
+    <h1>Баланс:</h1>
+    <p id="balance">Loading...</p>
 
+    <script>
+        const userId = {{ user.id }}; // Получаем ID авторизованного пользователя без кавычек
+    </script>
+    <script src="{% static 'js/game.js' %}"></script>
 </body>
 </html>

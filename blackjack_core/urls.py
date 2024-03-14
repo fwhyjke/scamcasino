@@ -23,7 +23,8 @@ from blackjack_core import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blackjack.urls'))
+    path('', include('blackjack.urls')),
+    path('api/', include('game_logic_api.urls'))
 ]
 
 if settings.DEBUG:

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blackjack.apps.BlackjackConfig',
     'user_app.apps.UserAppConfig',
+    'game_logic_api.apps.GameLogicApiConfig',
     'rest_framework'
 ]
 

@@ -11,6 +11,10 @@ class UserManager(BaseUserManager):
         user = self.model(username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
+        from game_logic_api.models import UserBalance
+        UserBalance.objects.create(user=user)
+
         return user
 
     def create_user(self, username, password=None, **extra_fields):
