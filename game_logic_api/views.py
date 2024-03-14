@@ -15,3 +15,12 @@ class GetUserBalanceAPI(APIView):
             balance_object.record = balance['balance']
             balance_object.save()
         return Response(balance['balance'])
+
+
+class ResetBalanceAPI(APIView):
+    def get(self, request):
+        user = request.query_params.get('id')
+        balance_object = UserBalance.objects.get(user=user)
+        balance_object.balance = 5000
+        balance_object.save()
+        return Response({"message": "Баланс успешно сброшен"})

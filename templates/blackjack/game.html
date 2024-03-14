@@ -10,6 +10,7 @@
     <h1>Пользователь {{ user.username }}</h1>
     <h1>Баланс:</h1>
     <p id="balance">Loading...</p>
+    <button onclick="resetBalance()">Сбросить баланс (будет 5000)</button>
 
     <script>
         const userId = {{ user.id }}; // Получаем ID авторизованного пользователя без кавычек
