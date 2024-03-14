@@ -1,3 +1,11 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 @font-face {
     font-family: FiraSans-Regular;
     src: url('fonts/FiraSans-Regular.ttf') format('truetype');
@@ -12,27 +20,15 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: FiraSans-Light;
-    src: url('fonts/FiraSans-Light.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: FiraSans-Italic;
-    src: url('fonts/FiraSans-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
     margin: 0;
 }
 
-html {
-    background-color: black;
-    font-size: 10px;
+form *{
+  color: #ffffff;
+  letter-spacing: 0.05rem;
+  outline: none;
+  border: none;
 }
 
 header {
@@ -47,52 +43,123 @@ header img {
     height: 3rem;
 }
 
-
-
-.start_game {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+html {
+  background-color: black;
+  font-size: 10px;
+  font-family: FiraSans-Bold;
 }
 
-.gradient-button-wel {
-    text-decoration: none;
-    display: inline-block;
-    padding: 24px 40px;
-    border-radius: 60px;
-    font-size: 60px;
-    color: #ffffff;
-    background-image: linear-gradient(to right, #2E151B, #c43131, #2E151B);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .gradient-button-wel:hover {
-    transform: scale(1.1);
-  }
+header {
+  display: flex;
+  width: 110rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 0px 24px 24px;
+  background: #595959;
+  position: sticky;
+  top: -1.5%;
+  z-index: 1;
+}
+
+.logo {
+  position: relative;
+  top: 1rem;
+  text-align: center;
+  display: inline;
+  height: 2.8rem;
+}
+
+.user-name {
+  cursor: pointer;
+  background:none;
+  position: relative;
+  display: inline-block;
+}
+
+.logout-form{
+  color:#000000;
+  display: inline-block;
+  padding: 1.6rem;
+  text-align: center;
+  font-size: 1.6rem;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.wrapper {
+  width: 110rem;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.fa-solid {
+  position: relative;
+  top: 2px;
+  font-weight: 90;
+  margin-left: 0.4rem;
+}
+
+.logout-form{
+  color:#000000;
+  display: inline-block;
+  padding: 1.6rem;
+  text-align: center;
+  font-size: 1.6rem;
+  text-decoration: none;
+  transition: 0.25s;
+}
 
 
-  .glow-on-hover {
-    position: relative;
-    animation: glow-on-hover 0.75s ease-in-out infinite;
-  }
-  
-  @keyframes glow-on-hover {
-    0% {
-      box-shadow: 0 0 0 0 rgba(189, 96, 96, 0.7);
-    }
-  
-    50% {
-      box-shadow: 0 0 40px 20px rgba(255, 234, 46, 0);
-    }
-  
-    100% {
-      box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-    }
-  }
-  
+.header-list {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+  padding-inline-start: 0;
+}
+
+.header-list>li {
+  display: inline;
+  position: relative;
+}
+
+.header-list__element {
+  display: inline-block;
+  padding: 1.6rem;
+  color: rgba(255, 255, 255, 0.60);
+  text-align: center;
+  font-size: 1.6rem;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.header-list__element-btn {
+  border: none;
+  padding: 1.6rem;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.60);
+  background: #595959;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.header-list__name {
+  text-decoration: none;
+  display: inline-block;
+  padding: 1.6rem;
+  font-size: 1.6rem;
+  color: rgba(255, 190, 190, 0.6);
+  text-align: center;
+  font-size: 1.6rem;
+  transition: 0.25s;
+}
+
+.header-list__element:hover, .header-list__element-btn:hover {
+  color: rgba(255, 255, 255, 0.90);
+}
+
+.header-list__name:hover {
+  padding: 0.8rem;
+  font-size: 2rem;
+  color: rgba(255, 190, 190, 0.9);
+}
+

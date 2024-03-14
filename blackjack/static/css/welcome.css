@@ -1,82 +1,72 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 110rem;
-    height: 100vh;
+main {
+  margin: 0;
+  margin-top: 28%;
+  padding: 0 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .main-title {
-    margin: 0;
-    color: #FFF;
-    font-family: Inter-Bold;
-    font-size: 4.8rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+  margin: 0;
+  color: #FFF;
+  font-size: 3.6rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 2rem;
 }
 
 .promo {
-    width: 36rem;
+  width: 36rem;
+}
+
+.scumcasino{
+  color: rgba(255, 100, 100, 0.75);
 }
 
 .promo-text {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.75);
-    font-family: Inter-Regular;
-    font-size: 2.4rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.go-btn {
-    margin-top: 0.8rem;
-    display: inline-block;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.10);
-    padding: 1.6rem;
-    text-decoration: none;
-    color: #FFF;
-    font-family: Inter-Regular;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.gradient-button-wel {
+  text-decoration: none;
+  display: inline-block;
+  padding: 24px 40px;
+  border-radius: 60px;
+  font-size: 60px;
+  color: #ffffff;
+  background-image: linear-gradient(to right, #2E151B, #c43131, #2E151B);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+  
+.gradient-button-wel:hover {
+  transform: scale(1.1);
 }
 
 
-.reg {
-    width: 32rem;
+.glow-on-hover {
+  position: relative;
+  animation: glow-on-hover 0.75s ease-in-out infinite;
 }
-
-.reg__how-to {
-    margin: 0;
-    margin-bottom: 1rem;
-    color: #FFF;
-    font-family: Inter-Bold;
-    font-size: 4rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    opacity: 80%;
-}
-
-.reg__text {
-    margin: 0;
-    margin-bottom: 0.8rem;
-    color: rgba(255, 255, 255, 0.75);
-    font-family: Inter-Regular;
-    font-size: 2.4rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-main {
-    margin: 0;
-    padding: 0 10rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  
+@keyframes glow-on-hover {
+  0% {
+  box-shadow: 0 0 0 0 rgba(189, 96, 96, 0.7);
+  } 
+  50% {
+    box-shadow: 0 0 40px 20px rgba(255, 234, 46, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
 }

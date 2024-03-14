@@ -5,11 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views import View
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, CreateView, FormView
-from user_app.models import User
+from django.views.generic import TemplateView, CreateView
 from blackjack.forms import *
 
 
