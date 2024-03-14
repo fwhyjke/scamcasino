@@ -11,4 +11,7 @@ class GetUserBalanceAPI(APIView):
         user = request.query_params.get('id')
         balance_object = UserBalance.objects.get(user=user)
         balance = dict(BalanceSerializer(balance_object).data)
+        if balance['balance'] > balance['record']:
+            balance_object.record = balance['balance']
+            balance_object.save()
         return Response(balance['balance'])
