@@ -41,6 +41,7 @@ function PickUpBet() {
 }
 
 function MakeBet() {
+    console.log(CurrentBalance)
     const amount = document.getElementById("balanceInput").value;
 
     if (amount.trim() === "") {
@@ -51,7 +52,7 @@ function MakeBet() {
         alert("Пожалуйста, введите корректную сумму ставки. Ставка не может быть отрицательной!");
         return;
     }
-    if (amount > parseFloat(CurrentBalance)) {
+    if (amount > CurrentBalance.bal) {
         alert("Недостаточно средств на счету! Пожалуйста, введите корректную сумму ставки.");
         return;
     }
@@ -90,7 +91,7 @@ function MakeBet() {
         document.getElementById('moreButton').style.display = 'inline-block';
         document.getElementById('refundButton').style.display = 'inline-block';
         document.getElementById('doubleButton').style.display = 'inline-block';
-        if (amount * 2 > parseFloat(CurrentBalance)) {
+        if (amount * 2 > CurrentBalance.bal) {
             document.getElementById('doubleButton').style.display = 'none';
         }
         PickUpBet();
@@ -297,4 +298,5 @@ function GameResult() {
     });
 }
 
+updateUserBalance();
 updateUserBalance();
