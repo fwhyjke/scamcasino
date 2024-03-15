@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from user_app.models import User
 
 
+# Форма регистрации пользователей
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
@@ -16,6 +17,7 @@ class RegistrationForm(UserCreationForm):
         return user
 
 
+# Форма для входа пользователей
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'placeholder': 'Введите ваш логин'}))
     password = forms.CharField(label='Password',

@@ -1,6 +1,7 @@
-from django.urls import path
 from blackjack.views import *
+from django.urls import path
 
+# Настройка маршрутизации (все основные ссылки на сайте)
 urlpatterns = [
     path('', StartView.as_view(), name='welcome'),
     path('login', UserLoginView.as_view(), name='login'),

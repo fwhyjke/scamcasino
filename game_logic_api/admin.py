@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
 from .models import UserBalance
 
 
+# Регистрируем таблицу балансов пользователя в админку
 class UserBalanceAdmin(admin.ModelAdmin):
     model = UserBalance
     ordering = ['user']

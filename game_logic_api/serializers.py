@@ -2,6 +2,8 @@ from rest_framework import serializers
 from rest_framework.serializers import Serializer
 
 
+# В данном файле представлены необходимые сериализатора для взаимодействия DRF с клиентом
+
 class BalanceSerializer(Serializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     balance = serializers.IntegerField(default=5000)
@@ -17,4 +19,3 @@ class HandSerializer(serializers.Serializer):
 class CardSerializer(serializers.Serializer):
     card = serializers.CharField()
     value = serializers.IntegerField()
-

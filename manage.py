@@ -4,6 +4,7 @@ import os
 import sys
 
 
+# Файл, который отвечает за запуст сайта через консоль. В целом - сердце сайта.
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blackjack_core.settings')

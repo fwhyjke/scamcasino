@@ -21,12 +21,14 @@ from django.urls import include, path
 
 from blackjack_core import settings
 
+# собираем и подключаем все ссылки прииложения
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blackjack.urls')),
     path('api/', include('game_logic_api.urls'))
 ]
 
+# Также подключаем доступ к статическим файлам
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

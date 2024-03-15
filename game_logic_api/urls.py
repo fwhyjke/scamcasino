@@ -1,6 +1,8 @@
 from django.urls import path
 from game_logic_api.views import *
 
+
+# Ниже регистрируется все пути моего API
 urlpatterns = [
     path('user-balance', GetUserBalanceAPI.as_view(), name='balance'),
     path('reset-balance', ResetBalanceAPI.as_view(), name='reset'),
