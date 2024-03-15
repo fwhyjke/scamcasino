@@ -18,6 +18,7 @@ class Deck:
     @staticmethod
     def get_nominal(card):
         nominals = {
+            'A1': 1,
             '2': 2,
             '3': 3,
             '4': 4,
@@ -64,37 +65,15 @@ class Hand:
     def add_card(self, card):
         self.cards.append(card[0])
         self.value += card[1]
+        if self.value > 21 and any([i in self.cards for i in ['Ac', 'Ad', 'Ah', 'As']]):
+            count_A = [i for i in self.cards if i in ['Ac', 'Ad', 'Ah', 'As']]
+            while len(count_A) != 0 and self.value > 21:
+                self.value -= 10
+                A = count_A.pop()
+                print(A)
+                print(self.cards.index(A))
+                del self.cards[self.cards.index(A)]
+                self.cards.append(f'A1{A[-1]}')
 
     def __str__(self):
         return f'{self.cards}'
-
-
-def determine_winner(player_hand, dealer_hand, status) -> float:
-    if status == 'refund':
-        return 0.5
-
-    elif status == 'more':
-        if player_hand > 21:
-            return 0
-        else:
-            return 200
-
-    elif status == 'stop':
-        if player_hand > 21:
-            return 0
-        elif dealer_hand.value > 21:
-            return 2
-        elif player_hand.value == dealer_hand:
-            return 1
-        elif player_hand.value > dealer_hand:
-            return 2
-
-    elif status == 'double':
-        if player_hand > 21:
-            return -1
-        elif dealer_hand.value > 21:
-            return 3
-        elif player_hand.value == dealer_hand:
-            return 1
-        elif player_hand.value > dealer_hand:
-            return 3
