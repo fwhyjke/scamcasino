@@ -7,14 +7,18 @@
 
 Для запуска сайта на локальной машине произведите следующие действия:
 1) Откройте терминал в директории проекта, либо откройте терминал в IDE
+
+
              Линукс
-2) Если вы на линукс, тогда установите виртуальное окружение <virtualenv venv -p python3.10>
-3) Активируйте его <source venv/bin/activate>
-4) Установите необходимые зависимости <pip install -r requirements.txt>
-5) Там же создайте миграции <python manage.py makemigrations>
-6) Проведите миграции <python manage.py migrate>
-7) Запустите сервер <python manage.py runserver>
-8) Пользуйтесь ( http://127.0.0.1:8000/)
+1) Если вы на линукс, тогда установите виртуальное окружение <virtualenv venv -p python3.10>
+2) Активируйте его <source venv/bin/activate>
+3) Установите необходимые зависимости <pip install -r requirements.txt>
+4) Там же создайте миграции <python manage.py makemigrations>
+5) Проведите миграции <python manage.py migrate>
+6) Запустите сервер <python manage.py runserver>
+7) Пользуйтесь ( http://127.0.0.1:8000/)
+
+   
              Windows
 2) Создайте виртуальное окружение, легче всего в pycharm
 3) Пропишите в терминал pycharm (либо в сmd) <pip install -r requirements.txt>
