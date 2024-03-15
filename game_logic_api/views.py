@@ -227,7 +227,7 @@ class ResultGameAPI(APIView):
         # Если игрок сразу поймал BJ, то он будет отправлен на этот апи и ему выплатится его ставка 3 : 2
         if status == 'blackjack':
             balance_object = UserBalance.objects.get(user=user)
-            balance_object.balance += int(bet) * 3
+            balance_object.balance += int(bet) * 2
             balance_object.save()
             delete_session_data(user)
             return Response({"game": "blackjack"})
