@@ -10,12 +10,31 @@
     <h1>Пользователь {{ user.username }}</h1>
     <h1>Баланс:</h1>
     <p id="balance">Loading...</p>
-    <button onclick="resetBalance()">Сбросить баланс (будет 5000)</button>
+    <button id="new_balance" onclick="resetBalance()">Сбросить баланс (будет 5000)</button>
 
-    <h2>Ставка</h2>
-    <input type="number" id="balanceInput" placeholder="Введите сумму ставки">
-    <button onclick="Bet()">ПОСТАВИТЬ</button>
+    <div id="bets_table">
+        <h2>Ставка</h2>
+        <input type="number" id="balanceInput" placeholder="Введите сумму ставки">
+        <button onclick="MakeBet()">ПОСТАВИТЬ</button>
+    </div>
 
+    <h3 id="bet">Ставок нет</h3>
+
+    <h3 id="dealer_hand">Рука диллера: ? ?</h3>
+    <h3 id="dealer_score">Очков: ?</h3>
+    <br>
+    <h3 id="player_hand">Ваша рука: ? ?</h3>
+    <h3 id="player_score">Очков: ?</h3>
+    <button id="stopButton" onclick="Stop()" style="display: none;">Хватит</button>
+    <button id="moreButton" onclick="More()" style="display: none;">Ещё</button>
+    <button id="refundButton" onclick="Refund()" style="display: none;">Возврат</button>
+    <button id="doubleButton" onclick="Double()" style="display: none;">Удвоить ставку</button>
+    <button id="restartButton" onclick="Restart()" style="display: none;">Начать заного</button>
+
+    
+
+    
+    
     <script>
         const userId = {{ user.id }}; // Получаем ID авторизованного пользователя без кавычек
     </script>
