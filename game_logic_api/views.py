@@ -10,6 +10,7 @@ from game_logic_api.models import UserBalance
 from game_logic_api.serializers import BalanceSerializer, HandSerializer
 
 from game_logic_api.logic import Deck, Hand
+from game_logic_api.utils import delete_session_data
 
 
 class GetUserBalanceAPI(APIView):
@@ -56,12 +57,12 @@ class StartGameAPI(APIView):
             }
             redis_conn = get_redis_connection("default")
             redis_conn.set(f'user_{user}_status', 'blackjack')
-
-        response_data = {
-            "player_hand": player_hand_serializer.data,
-            "dealer_hand": dealer_hand_serializer.data,
-            "blackjack": 0
-        }
+        else:
+            response_data = {
+                "player_hand": player_hand_serializer.data,
+                "dealer_hand": dealer_hand_serializer.data,
+                "blackjack": 0
+            }
 
         redis_conn = get_redis_connection("default")
         redis_conn.set(f'user_{user}_bet', bet)
@@ -118,10 +119,10 @@ class PlayerLoseAPI(APIView):
         redis_conn = get_redis_connection("default")
         status = str(redis_conn.get(f'user_{user}_status').decode('utf-8').replace("'", '"'))
         if status == 'more':
-            redis_conn.flushall()
+            delete_session_data(user)
             return Response({"message": "Игра завершина. Пользователь перебрал карты и потерял ставку"})
         if status == 'double':
-            redis_conn.flushall()
+            delete_session_data(user)
             return Response({"message": "Игра завершина. Пользователь удвоил и перебрал карты"})
 
 
@@ -133,7 +134,7 @@ class PlayerRefundAPI(APIView):
         balance_object = UserBalance.objects.get(user=user)
         balance_object.balance += int(bet * 0.5)
         balance_object.save()
-        redis_conn.flushall()
+        delete_session_data(user)
         return Response({"message": "Игра завершина. Пользователь вернул карты и потерял половину ставки"})
 
 
@@ -199,6 +200,7 @@ class ResultGameAPI(APIView):
             balance_object = UserBalance.objects.get(user=user)
             balance_object.balance += int(bet) * 3
             balance_object.save()
+            delete_session_data(user)
             return Response({"game": "blackjack"})
 
         if dealer_value > 21 or player_value > dealer_value:
@@ -210,6 +212,7 @@ class ResultGameAPI(APIView):
                 balance_object = UserBalance.objects.get(user=user)
                 balance_object.balance += int(bet) * 2
                 balance_object.save()
+                delete_session_data(user)
             return Response({"game": "win"})
 
         elif player_value == dealer_value:
@@ -221,7 +224,9 @@ class ResultGameAPI(APIView):
                 balance_object = UserBalance.objects.get(user=user)
                 balance_object.balance += int(bet)
                 balance_object.save()
+                delete_session_data(user)
             return Response({"game": "draw"})
 
         elif dealer_value > player_value:
+            delete_session_data(user)
             return Response({"game": "lose"})

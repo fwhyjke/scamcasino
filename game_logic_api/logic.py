@@ -70,8 +70,6 @@ class Hand:
             while len(count_A) != 0 and self.value > 21:
                 self.value -= 10
                 A = count_A.pop()
-                print(A)
-                print(self.cards.index(A))
                 del self.cards[self.cards.index(A)]
                 self.cards.append(f'A1{A[-1]}')
 
