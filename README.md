@@ -20,8 +20,8 @@
 
    
              Windows
-2) Создайте виртуальное окружение, легче всего в pycharm
-3) Пропишите в терминал pycharm (либо в сmd) <pip install -r requirements.txt>
-4) Там же создайте миграции <python manage.py makemigrations>
-5) Проведите миграции <python manage.py migrate>
-6) Пользуйтесь (http://127.0.0.1:8000/)
+1) Создайте виртуальное окружение, легче всего в pycharm
+2) Пропишите в терминал pycharm (либо в сmd) <pip install -r requirements.txt>
+3) Там же создайте миграции <python manage.py makemigrations>
+4) Проведите миграции <python manage.py migrate>
+5) Пользуйтесь (http://127.0.0.1:8000/)
