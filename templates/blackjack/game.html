@@ -4,34 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Balance</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
+    <script src="https://kit.fontawesome.com/cfed9a189e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Пользователь {{ user.username }}</h1>
-    <h1>Баланс:</h1>
-    <p id="balance">Loading...</p>
-    <button id="new_balance" onclick="resetBalance()">Сбросить баланс (будет 5000)</button>
+    <div class="wrapper">
+        <header>
+            <ul class="header-list">
+                <li>
+                    <a class="header-list__element" href="https://t.me/fwhyjke">контакты</a>
+                </li>
+                <li>
+                    <a class="" href="/">
+                        <img class="logo" src="{% static 'images/logo.png' %}" alt="Logo">
+                    </a>
+                </li>
+                <li>
+                    {% if user.is_authenticated %}
+                    <form class="logout-form" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button class="user-name" type="submit">{{ user.username }}<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                    </form>
+                    {% else %}
+                    <a class="header-list__element" href="{% url 'login' %}">войти</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </header>
 
-    <div id="bets_table">
-        <h2>Ставка</h2>
-        <input type="number" id="balanceInput" placeholder="Введите сумму ставки">
-        <button onclick="MakeBet()">ПОСТАВИТЬ</button>
+        <main>
+            <div class="balance">
+                <div>
+                    <h1 class="balance-value">Баланс:</h1>
+                    <p class="balance-value" id="balance">Loading...</p>
+                </div>
+                <button id="new_balance" class="glow-on-hover" onclick="resetBalance()">Сбросить баланс (будет 5000)</button>
+                <div>
+                    <h1 class="balance-value">Рекорд:</h1>
+                    <p class="balance-value" id="rec">Loading...</p>
+                </div>
+            </div>
+        
+            <div class="bets-table" id="bets_table">
+                <h2>Ставка</h2>
+                <input class="inp" type="number" id="balanceInput" placeholder="Введите сумму">
+                <button class="more-btn custom-btn btn-1" onclick="MakeBet()">ПОСТАВИТЬ</button>
+            </div>
+            <div class="game" id="game" style="display: none;">
+                <div>
+                    <h3 class="cur-bet" id="bet">Ставок нет</h3>
+                </div>
+                
+                <div class="dealer">
+                    <p id="1" class="hand_name">Рука диллера: </p>
+                    <div id="dealer_hand"><img class="card_img" src="{% static 'images/back.png' %}" alt="Скрытая карта"> <img class="card_img" src="{% static 'images/back.png' %}" alt="Скрытая карта"></div>
+                    <h3 class="score" id="dealer_score">Очков: ?</h3>
+                </div>
+                
+                <div class="player">
+                    <p id="2" class="hand_name">Ваша рука: </p>
+                    <div id="player_hand"><img class="card_img" src="{% static 'images/back.png' %}" alt="Скрытая карта"> <img class="card_img" src="{% static 'images/back.png' %}" alt="Скрытая карта"></div>
+                    <h3 class="score" id="player_score">Очков: ?</h3>
+                </div>
+                
+                <div class="buttons">
+                    <button class="ref-btn custom-btn btn-1" id="refundButton" onclick="Refund()" style="display: none;">Возврат</button>                 
+                    <button class="stop-btn custom-btn btn-1" id="stopButton" onclick="Stop()" style="display: none;">Хватит</button>
+                    <button class="more-btn custom-btn btn-1" id="moreButton" onclick="More()" style="display: none;">Ещё</button>
+                    <button class="doub-btn custom-btn btn-1" id="doubleButton" onclick="Double()" style="display: none;">Удвоить</button>
+                    <button class="rest-btn custom-btn btn-1" id="restartButton" onclick="Restart()" style="display: none;">Заного</button>
+                </div>
+            
+                <h3 class="res" id="result" style="display: none;">Результат</h3>
+            </div>
+        </main>
     </div>
-
-    <h3 id="bet">Ставок нет</h3>
-
-    <h3 id="dealer_hand">Рука диллера: ? ?</h3>
-    <h3 id="dealer_score">Очков: ?</h3>
-    <br>
-    <h3 id="player_hand">Ваша рука: ? ?</h3>
-    <h3 id="player_score">Очков: ?</h3>
-    <button id="stopButton" onclick="Stop()" style="display: none;">Хватит</button>
-    <button id="moreButton" onclick="More()" style="display: none;">Ещё</button>
-    <button id="refundButton" onclick="Refund()" style="display: none;">Возврат</button>
-    <button id="doubleButton" onclick="Double()" style="display: none;">Удвоить ставку</button>
-    <button id="restartButton" onclick="Restart()" style="display: none;">Начать заного</button>
-
-    <h3 id="result" style="display: none;">Результат</h3>
      
     <script>
         const userId = {{ user.id }}; // Получаем ID авторизованного пользователя без кавычек

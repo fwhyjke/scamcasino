@@ -1,14 +1,9 @@
 import json
-import time
-
-from django.shortcuts import render, redirect
-from django_redis import cache, get_redis_connection
+from django_redis import get_redis_connection
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from game_logic_api.models import UserBalance
 from game_logic_api.serializers import BalanceSerializer, HandSerializer
-
 from game_logic_api.logic import Deck, Hand
 from game_logic_api.utils import delete_session_data
 
@@ -21,7 +16,7 @@ class GetUserBalanceAPI(APIView):
         if balance['balance'] > balance['record']:
             balance_object.record = balance['balance']
             balance_object.save()
-        return Response(balance['balance'])
+        return Response({'bal': balance['balance'], 'rec': balance['record']})
 
 
 class ResetBalanceAPI(APIView):
@@ -155,7 +150,6 @@ class DealerTurn(APIView):
         redis_conn = get_redis_connection("default")
         cards = json.loads(redis_conn.get(f'user_{user}_cards_deck').decode('utf-8').replace("'", '"'))
         cards = Deck(cards)
-
         dealer_hand = json.loads(redis_conn.get(f'user_{user}_dealer_hand').decode('utf-8'))
         dealer_hand = Hand(dealer_hand['cards'], dealer_hand['value'])
         dealer_hand.hidden = False
@@ -165,10 +159,8 @@ class DealerTurn(APIView):
         response_data = {
             "dealer_hand": dealer_hand_serializer.data,
         }
-
         redis_conn.set(f'user_{user}_dealer_hand', json.dumps(dealer_hand_serializer.data))
         redis_conn.set(f'user_{user}_cards_deck', json.dumps(cards.deck))
-
         return Response(response_data)
 
 
@@ -186,7 +178,7 @@ class ResultGameAPI(APIView):
         redis_conn = get_redis_connection("default")
         status = str(redis_conn.get(f'user_{user}_status').decode('utf-8').replace("'", '"'))
         bet = int(redis_conn.get(f'user_{user}_bet'))
-
+        
         dealer_hand = json.loads(redis_conn.get(f'user_{user}_dealer_hand').decode('utf-8'))
         dealer_hand = Hand(dealer_hand['cards'], dealer_hand['value'])
 

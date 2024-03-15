@@ -1,0 +1,209 @@
+html {
+    background-color: #040c01;
+    color: #ffffff;
+}
+
+main{
+    text-align: center;
+    margin-top: 5%;
+}
+
+h2{
+    display: inline-block;
+    text-align: center;
+    font-size: 3.2rem;
+    margin-bottom: 2%;
+}
+
+.inp {
+    margin-bottom: 2rem;
+    width: 20rem;
+    height: 5rem;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.bets-table{
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.balance {
+    width: 50rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 15%;
+}
+
+.balance-value {
+    display: inline;
+    font-size: 2rem;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card_img {
+    width: 12.5rem;
+    fill: none;
+}
+
+
+.buttons {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.glow-on-hover {
+    font-size: 1.4rem;
+    width: 200px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+.custom-btn {
+    font-family: FiraSans-Regular;
+    width: 12rem;
+    height: 4rem;
+    color: #fff;
+    border-radius: 16px;
+    padding: 10px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+}
+
+.ref-btn {
+    background: rgb(255, 0, 0);
+    border: none;
+}
+.ref-btn:hover {
+     background: rgb(255, 50, 50);
+}
+
+.stop-btn {
+    background: rgb(180, 110, 19);
+    border: none;
+}
+.stop-btn:hover {
+     background: rgb(180, 150, 50);
+}
+
+.more-btn {
+    background: rgb(0, 128, 0);
+    border: none;
+}
+.more-btn:hover {
+     background: rgb(43, 255, 43);
+}
+
+.doub-btn {
+    color: #d46f6f;
+    background: rgb(251, 255, 0);
+    border: none;
+}
+.doub-btn:hover {
+     background: rgb(220, 255, 65);
+}
+
+.rest-btn {
+    background: rgb(211, 95, 0);
+    border: none;
+}
+.rest-btn:hover {
+     background: rgb(250, 170, 50);
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cur-bet {
+    font-size: 3rem;
+    margin-bottom: 10%;
+}
+
+.dealer {
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+
+.score {
+    margin-top: 0.2rem;
+    font-size: 2rem;
+}
+
+.res {
+    font-size: 1.6rem;
+    margin-top: 0.4rem;
+}

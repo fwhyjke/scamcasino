@@ -6,7 +6,8 @@ function updateUserBalance() {
         .then(response => response.json())
         .then(data => {
             CurrentBalance = data
-            document.getElementById("balance").textContent = `Balance: ${CurrentBalance}`;
+            document.getElementById("balance").textContent = `${CurrentBalance.bal}`;
+            document.getElementById("rec").textContent = `${CurrentBalance.rec}`;
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -54,25 +55,33 @@ function MakeBet() {
         alert("Недостаточно средств на счету! Пожалуйста, введите корректную сумму ставки.");
         return;
     }
-
+    document.getElementById("bet").style.display = 'block';
+    document.getElementById("dealer_hand").style.display = 'block';
+    document.getElementById("1").style.display = 'block';
+    document.getElementById("2").style.display = 'block';
+    document.getElementById("dealer_score").style.display = 'block';
+    document.getElementById("player_hand").style.display = 'block';
+    document.getElementById("player_score").style.display = 'block';
+    document.getElementById('new_balance').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
     const url = `http://127.0.0.1:8000/api/start-game?id=${userId}&bet=${amount}`;
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        document.getElementById("bet").textContent = `Ставка ${amount}`;
+        document.getElementById("bet").textContent = `Ставка: ${amount}`;
         
         player = data.player_hand;
         dealer = data.dealer_hand;
         
         if (dealer.hidden) {
-            document.getElementById("dealer_hand").textContent = `Рука диллера: ? ${dealer.cards[1]}`;
+            document.getElementById("dealer_hand").innerHTML = `<img class="card_img" src="static/images/back.png" alt="Скрытая карта"> <img class="card_img" src="static/images/${dealer.cards[1]}.png" alt="${dealer.cards[1]}">`;
             document.getElementById("dealer_score").textContent = `Очков: карта скрыта`;
         } else {
-            document.getElementById("dealer_hand").textContent = `Рука диллера: ${dealer.cards}`;
+            document.getElementById("dealer_hand").innerHTML = `<img class="card_img" src="static/images/${dealer.cards[0]}.png" alt="${dealer.cards[0]}"> <img class="card_img" src="static/images/${dealer.cards[1]}.png" alt="${dealer.cards[1]}">`;
             document.getElementById("dealer_score").textContent = `Очков: ${dealer.value}`;
         }
 
-        document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
+        document.getElementById("player_hand").innerHTML = `<img class="card_img" src="static/images/${player.cards[0]}.png" alt="${player.cards[0]}"> <img class="card_img" src="static/images/${player.cards[1]}.png" alt="${player.cards[1]}">`;
         document.getElementById("player_score").textContent = `Очков: ${player.value}`;
 
         document.getElementById('bets_table').style.display = 'none';
@@ -92,6 +101,7 @@ function MakeBet() {
             document.getElementById('refundButton').style.display = 'none';
             document.getElementById('doubleButton').style.display = 'none';
         }
+        document.getElementById('game').style.display = 'flex';
 
     })
     .catch(error => {
@@ -121,7 +131,7 @@ function Refund() {
     .then(response => response.json())
     .then(data => {
         updateUserBalance();
-        document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
+        document.getElementById("player_hand").innerHTML = `<img class="card_img" src="static/images/${player.cards[0]}.png" alt="${player.cards[0]}"> <img class="card_img" src="static/images/${player.cards[1]}.png" alt="${player.cards[1]}">`;
         document.getElementById("player_score").textContent = `Очков: ${player.value}. Вы отказались от карт и получили назад половину ставки.`;
         document.getElementById('stopButton').style.display = 'none';
         document.getElementById('moreButton').style.display = 'none';
@@ -143,7 +153,12 @@ function More() {
         player = data.player_hand;
 
         if (player.value <= 21) {
-            document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
+            var handHtml = "";
+            for (var i = 0; i < player.cards.length; i++) {
+                handHtml += `<img class="card_img" src="static/images/${player.cards[i]}.png" alt="${player.cards[i]}">`;
+            }
+            document.getElementById("player_hand").innerHTML = handHtml;
+
             document.getElementById("player_score").textContent = `Очков: ${player.value}`;
             document.getElementById('stopButton').style.display = 'inline-block';
             document.getElementById('moreButton').style.display = 'inline-block';
@@ -151,7 +166,11 @@ function More() {
             document.getElementById('doubleButton').style.display = 'none';
         } else {
             Lose();
-            document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
+            var handHtml = "";
+            for (var i = 0; i < player.cards.length; i++) {
+                handHtml += `<img class="card_img" src="static/images/${player.cards[i]}.png" alt="${player.cards[i]}">`;
+            }
+            document.getElementById("player_hand").innerHTML = handHtml;
             document.getElementById("player_score").textContent = `Очков: ${player.value}. Вы перебрали и проиграли.`;
             document.getElementById('stopButton').style.display = 'none';
             document.getElementById('moreButton').style.display = 'none';
@@ -189,7 +208,7 @@ function Double() {
         player = data.player_hand;
 
         if (player.value <= 21) {
-            document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
+            document.getElementById("player_hand").innerHTML = `<img class="card_img" src="static/images/${player.cards[0]}.png" alt="${player.cards[0]}"> <img class="card_img" src="static/images/${player.cards[1]}.png" alt="${player.cards[1]}"> <img class="card_img" src="static/images/${player.cards[2]}.png" alt="${player.cards[2]}">`;
             document.getElementById("player_score").textContent = `Очков: ${player.value}`;
             document.getElementById('stopButton').style.display = 'none';
             document.getElementById('moreButton').style.display = 'none';
@@ -198,7 +217,8 @@ function Double() {
             DealerTurn();
         } else {
             Lose();
-            document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
+            document.getElementById("player_hand").innerHTML = `<img class="card_img" src="static/images/${player.cards[0]}.png" alt="${player.cards[0]}"> <img class="card_img" src="static/images/${player.cards[1]}.png" alt="${player.cards[1]}"> <img class="card_img" src="static/images/${player.cards[2]}.png" alt="${player.cards[2]}">`;
+            document.getElementById("player_score").textContent = `Очков: ${player.value}`;
             document.getElementById("player_score").textContent = `Очков: ${player.value}. Вы перебрали и проиграли двойную ставку.`;
             document.getElementById('stopButton').style.display = 'none';
             document.getElementById('moreButton').style.display = 'none';
@@ -215,12 +235,14 @@ function Double() {
 
 
 function Restart() {
-    document.getElementById('bets_table').style.display = 'block';
-    document.getElementById("bet").textContent = `Ставкок нет`;
-    document.getElementById("dealer_hand").textContent = `Рука диллера: ? ?`;
-    document.getElementById("dealer_score").textContent = `Очков: ?`;
-    document.getElementById("player_hand").textContent = `Ваша рука: ? ?`;
-    document.getElementById("player_score").textContent = `Очков: ?`;
+    document.getElementById('bets_table').style.display = 'flex';
+    document.getElementById("bet").style.display = 'none';
+    document.getElementById("dealer_hand").style.display = 'none';
+    document.getElementById("1").style.display = 'none';
+    document.getElementById("2").style.display = 'none';
+    document.getElementById("dealer_score").style.display = 'none';
+    document.getElementById("player_hand").style.display = 'none';
+    document.getElementById("player_score").style.display = 'none';
     document.getElementById('restartButton').style.display = 'none';
     document.getElementById('new_balance').style.display = 'block';
     document.getElementById('result').style.display = 'none';
@@ -234,7 +256,11 @@ function DealerTurn() {
     .then(data => {
         dealer = data.dealer_hand;
 
-        document.getElementById("dealer_hand").textContent = `Рука диллера: ${dealer.cards}`;
+        var handHtml = "";
+            for (var i = 0; i < dealer.cards.length; i++) {
+                handHtml += `<img class="card_img" src="static/images/${dealer.cards[i]}.png" alt="${dealer.cards[i]}">`;
+            }
+            document.getElementById("dealer_hand").innerHTML = handHtml;
         document.getElementById("dealer_score").textContent = `Очков: ${dealer.value}`;
 
         GameResult();
