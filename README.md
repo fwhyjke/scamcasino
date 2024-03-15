@@ -20,6 +20,17 @@
 
    
              Windows
+0) Установите Redis на свой компьютер 1. откройте терминал от имени администратор, пропишите <wsl --install> и после окончания перезагрузите компьютер
+    3. В "Компоненты Windows" поставьте галочку под "Подсистема Windows для Linux" и перезагрузите компьютер
+    4. wsl.exe --install Ubuntu и перезагруте копьютер
+    5. wsl -l -v
+    6. Откройте окно терминала Ububntu и следуйте инструкциям (после этого рабата в нем)
+    7. curl -fsSL  https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+    8. sudo apt-get update
+    9. sudo apt-get install redis
+    10. sudo service redis-server start
+    11. Готово. Если нет, то можете попробывать посмотреть видео индуса https://www.youtube.com/watch?v=ZU90G9eZG7Q&ab_channel=AdamTech  , мне помогло
+
 1) Создайте виртуальное окружение, легче всего в pycharm
 2) Пропишите в терминал pycharm (либо в сmd) <pip install -r requirements.txt>
 3) Там же создайте миграции <python manage.py makemigrations>
