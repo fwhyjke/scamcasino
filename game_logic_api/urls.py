@@ -9,4 +9,7 @@ urlpatterns = [
     path('lose', PlayerLoseAPI.as_view(), name='player-lose'),
     path('refund', PlayerRefundAPI.as_view(), name='player-ref'),
     path('reduce-balance', ReduceBalance.as_view(), name='reduce-bal'),
+    path('dealer-turn', DealerTurn.as_view(), name='dealer-turn'),
+    path('result', ResultGameAPI.as_view(), name='result'),
+    path('stop', PlayerStop.as_view(), name='stop'),
 ]

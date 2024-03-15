@@ -42,6 +42,10 @@ function PickUpBet() {
 function MakeBet() {
     const amount = document.getElementById("balanceInput").value;
 
+    if (amount.trim() === "") {
+        alert("Пожалуйста, введите сумму ставки.");
+        return;
+    }
     if (amount < 0) {
         alert("Пожалуйста, введите корректную сумму ставки. Ставка не может быть отрицательной!");
         return;
@@ -62,12 +66,11 @@ function MakeBet() {
         
         if (dealer.hidden) {
             document.getElementById("dealer_hand").textContent = `Рука диллера: ? ${dealer.cards[1]}`;
-            document.getElementById("dealer_score").textContent = `Очков: одна карта скрыта ${dealer.value}`;
+            document.getElementById("dealer_score").textContent = `Очков: карта скрыта`;
         } else {
             document.getElementById("dealer_hand").textContent = `Рука диллера: ${dealer.cards}`;
             document.getElementById("dealer_score").textContent = `Очков: ${dealer.value}`;
         }
-
 
         document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
         document.getElementById("player_score").textContent = `Очков: ${player.value}`;
@@ -82,6 +85,14 @@ function MakeBet() {
             document.getElementById('doubleButton').style.display = 'none';
         }
         PickUpBet();
+        if (player.value === 21) {
+            GameResult();
+            document.getElementById('stopButton').style.display = 'none';
+            document.getElementById('moreButton').style.display = 'none';
+            document.getElementById('refundButton').style.display = 'none';
+            document.getElementById('doubleButton').style.display = 'none';
+        }
+
     })
     .catch(error => {
         console.error('Error fetching data:', error);
@@ -91,10 +102,16 @@ function MakeBet() {
 
 
 function Stop() {
+    const url = `http://127.0.0.1:8000/api/stop?id=${userId}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.send();
     document.getElementById('stopButton').style.display = 'none';
     document.getElementById('moreButton').style.display = 'none';
     document.getElementById('refundButton').style.display = 'none';
     document.getElementById('doubleButton').style.display = 'none';
+    DealerTurn();
 }
 
 
@@ -163,8 +180,6 @@ function Lose() {
 }
 
 
-
-
 function Double() {
     const url = `http://127.0.0.1:8000/api/player-turn?id=${userId}&turn=double`;
     PickUpBet();
@@ -180,6 +195,7 @@ function Double() {
             document.getElementById('moreButton').style.display = 'none';
             document.getElementById('refundButton').style.display = 'none';
             document.getElementById('doubleButton').style.display = 'none';
+            DealerTurn();
         } else {
             Lose();
             document.getElementById("player_hand").textContent = `Ваша рука: ${player.cards}`;
@@ -207,11 +223,52 @@ function Restart() {
     document.getElementById("player_score").textContent = `Очков: ?`;
     document.getElementById('restartButton').style.display = 'none';
     document.getElementById('new_balance').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
 }
 
 
+function DealerTurn() {
+    const url = `http://127.0.0.1:8000/api/dealer-turn?id=${userId}`;
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        dealer = data.dealer_hand;
 
+        document.getElementById("dealer_hand").textContent = `Рука диллера: ${dealer.cards}`;
+        document.getElementById("dealer_score").textContent = `Очков: ${dealer.value}`;
 
+        GameResult();
 
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
+function GameResult() {
+    const url = `http://127.0.0.1:8000/api/result?id=${userId}`;
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        result = data.game;
+
+        if (result === 'win') {
+            document.getElementById("result").textContent = `Вы выиграли! Все ваши ставки возвращены в двойном размере!`;
+        } else if (result === 'draw') {
+            document.getElementById("result").textContent = `Ничья. Все ваши ставки возвращены.`;
+        } else if (result === 'lose') {
+            document.getElementById("result").textContent = `Вы програли. В следующий раз повезет!`;
+        } else if (result === 'blackjack') {
+            document.getElementById("result").textContent = `BLACKJACK! Вам сегодня везет! На баланс начислено 3 ваших ставки.`;
+        }
+        
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('restartButton').style.display = 'block';
+        updateUserBalance();
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
 
 updateUserBalance();

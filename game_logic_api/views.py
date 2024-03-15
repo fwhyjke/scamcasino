@@ -48,9 +48,19 @@ class StartGameAPI(APIView):
         player_hand_serializer = HandSerializer(player_hand)
         dealer_hand_serializer = HandSerializer(dealer_hand)
 
+        if player_hand.value == 21:
+            response_data = {
+                "player_hand": player_hand_serializer.data,
+                "dealer_hand": dealer_hand_serializer.data,
+                "blackjack": 1
+            }
+            redis_conn = get_redis_connection("default")
+            redis_conn.set(f'user_{user}_status', 'blackjack')
+
         response_data = {
             "player_hand": player_hand_serializer.data,
             "dealer_hand": dealer_hand_serializer.data,
+            "blackjack": 0
         }
 
         redis_conn = get_redis_connection("default")
@@ -136,3 +146,82 @@ class ReduceBalance(APIView):
         balance_object.balance -= int(bet)
         balance_object.save()
         return Response({"message": "Ставка принята"})
+
+
+class DealerTurn(APIView):
+    def get(self, request):
+        user = request.query_params.get('id')
+        redis_conn = get_redis_connection("default")
+        cards = json.loads(redis_conn.get(f'user_{user}_cards_deck').decode('utf-8').replace("'", '"'))
+        cards = Deck(cards)
+
+        dealer_hand = json.loads(redis_conn.get(f'user_{user}_dealer_hand').decode('utf-8'))
+        dealer_hand = Hand(dealer_hand['cards'], dealer_hand['value'])
+        dealer_hand.hidden = False
+        while dealer_hand.value < 17:
+            dealer_hand.add_card(cards.take_card())
+        dealer_hand_serializer = HandSerializer(dealer_hand)
+        response_data = {
+            "dealer_hand": dealer_hand_serializer.data,
+        }
+
+        redis_conn.set(f'user_{user}_dealer_hand', json.dumps(dealer_hand_serializer.data))
+        redis_conn.set(f'user_{user}_cards_deck', json.dumps(cards.deck))
+
+        return Response(response_data)
+
+
+class PlayerStop(APIView):
+    def get(self, request):
+        user = request.query_params.get('id')
+        redis_conn = get_redis_connection("default")
+        redis_conn.set(f'user_{user}_status', 'stop')
+        return Response({"message": "Игрок не добирает карты"})
+
+
+class ResultGameAPI(APIView):
+    def get(self, request):
+        user = request.query_params.get('id')
+        redis_conn = get_redis_connection("default")
+        status = str(redis_conn.get(f'user_{user}_status').decode('utf-8').replace("'", '"'))
+        bet = int(redis_conn.get(f'user_{user}_bet'))
+
+        dealer_hand = json.loads(redis_conn.get(f'user_{user}_dealer_hand').decode('utf-8'))
+        dealer_hand = Hand(dealer_hand['cards'], dealer_hand['value'])
+
+        player_hand = json.loads(redis_conn.get(f'user_{user}_player_hand').decode('utf-8'))
+        player_hand = Hand(player_hand['cards'], player_hand['value'])
+
+        player_value = player_hand.value
+        dealer_value = dealer_hand.value
+
+        if status == 'blackjack':
+            balance_object = UserBalance.objects.get(user=user)
+            balance_object.balance += int(bet) * 3
+            balance_object.save()
+            return Response({"game": "blackjack"})
+
+        if dealer_value > 21 or player_value > dealer_value:
+            if status == 'double':
+                balance_object = UserBalance.objects.get(user=user)
+                balance_object.balance += int(bet) * 4
+                balance_object.save()
+            else:
+                balance_object = UserBalance.objects.get(user=user)
+                balance_object.balance += int(bet) * 2
+                balance_object.save()
+            return Response({"game": "win"})
+
+        elif player_value == dealer_value:
+            if status == 'double':
+                balance_object = UserBalance.objects.get(user=user)
+                balance_object.balance += int(bet) * 2
+                balance_object.save()
+            else:
+                balance_object = UserBalance.objects.get(user=user)
+                balance_object.balance += int(bet)
+                balance_object.save()
+            return Response({"game": "draw"})
+
+        elif dealer_value > player_value:
+            return Response({"game": "lose"})
