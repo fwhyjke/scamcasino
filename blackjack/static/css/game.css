@@ -15,6 +15,7 @@ h2{
 }
 
 .inp {
+
     margin-bottom: 2rem;
     width: 20rem;
     height: 5rem;
@@ -205,4 +206,14 @@ h2{
 .res {
     font-size: 1.6rem;
     margin-top: 0.4rem;
+}
+
+.set-bet {
+    cursor: pointer;
+    width: 4rem;
+    margin: 1rem;
+    font-family: FiraSans-Regular;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
 }

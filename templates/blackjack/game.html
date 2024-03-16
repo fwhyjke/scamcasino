@@ -49,7 +49,11 @@
         
             <div class="bets-table" id="bets_table">
                 <h2>Ставка</h2>
-                <input class="inp" type="number" id="balanceInput" placeholder="Введите сумму">
+                <div>
+                    <button class="set-bet" onclick="divideByTwo()">: 2</button>
+                    <input class="inp" type="number" id="balanceInput" step="100" min="0" placeholder="Введите сумму">
+                    <button class="set-bet" onclick="setInputValue(CurrentBalance.bal)">MAX</button>
+                </div>
                 <button class="more-btn custom-btn btn-1" onclick="MakeBet()">ПОСТАВИТЬ</button>
             </div>
             <div class="game" id="game" style="display: none;">

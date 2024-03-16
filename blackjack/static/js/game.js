@@ -298,5 +298,18 @@ function GameResult() {
     });
 }
 
+
+function setInputValue(value){
+    document.getElementById('balanceInput').value = value;
+}
+
+function divideByTwo() {
+    var inputValue = document.getElementById('balanceInput').value;
+    if(inputValue !== '') {
+        var newValue = Math.floor(parseInt(inputValue) / 2);
+        document.getElementById('balanceInput').value = newValue;
+    }
+}
+
 updateUserBalance();
 updateUserBalance();
