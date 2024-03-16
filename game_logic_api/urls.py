@@ -14,4 +14,6 @@ urlpatterns = [
     path('dealer-turn', DealerTurn.as_view(), name='dealer-turn'),
     path('result', ResultGameAPI.as_view(), name='result'),
     path('stop', PlayerStop.as_view(), name='stop'),
+    path('record', RecordAPI.as_view(), name='record'),
+
 ]

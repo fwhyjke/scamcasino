@@ -1,5 +1,6 @@
 html {
     color: #ffffff;
+    background-color: rgb(17, 10, 10);
 }
 
 main{
@@ -35,9 +36,13 @@ h2{
 .balance {
     width: 50rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 15%;
+}
+
+.balance-data {
+    width: 10rem;
 }
 
 .balance-value {
@@ -216,4 +221,23 @@ h2{
     padding: 4px 8px;
     border: none;
     border-radius: 4px;
+}
+
+
+.main-wrap {
+    display: flex;
+    justify-content: space-around;
+    width: 110rem;
+}
+
+.leader-bord {
+    height: 40rem;
+    text-align: center;
+    padding: 1.6rem 3.2rem;
+    background-color:#00000048;
+    margin-top: 5%;
+}
+
+.top-player {
+    font-size: 2rem;
 }

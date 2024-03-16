@@ -264,3 +264,13 @@ class ResultGameAPI(APIView):
         elif dealer_value > player_value:
             delete_session_data(user)
             return Response({"game": "lose"})
+
+
+# Возвращаем топ 10 рекордов
+class RecordAPI(APIView):
+    def get(self, request):
+        records = UserBalance.objects.all()
+        records = [[i.user.username, i.record] for i in records]
+        records.sort(reverse=True, key=lambda x: x[1])
+        records = records[:5]
+        return Response({"top": records})

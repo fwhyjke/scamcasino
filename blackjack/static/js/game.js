@@ -236,6 +236,8 @@ function Double() {
 
 
 function Restart() {
+    updateUserBalance();
+    LeaderBord()
     document.getElementById('bets_table').style.display = 'flex';
     document.getElementById("bet").style.display = 'none';
     document.getElementById("dealer_hand").style.display = 'none';
@@ -311,5 +313,26 @@ function divideByTwo() {
     }
 }
 
+function LeaderBord(){
+    const url = `http://127.0.0.1:8000/api/record`;
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        abc = data.top
+        var handHtml = "";
+            for (var i = 0; i < abc.length; i++) {
+                console.log(i)
+                console.log(abc)
+                handHtml += `<p class="top-player">${i + 1}.  ${abc[i][0]} - ${abc[i][1]}</p>`;
+            }
+            document.getElementById("top-score").innerHTML = handHtml;
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+    
+
+LeaderBord()
 updateUserBalance();
 updateUserBalance();
